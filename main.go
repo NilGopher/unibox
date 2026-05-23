@@ -4,14 +4,18 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+
+	"github.com/NilGopher/unibox/internal/cat"
 )
 
 func main() {
 	log.SetFlags(0)
 
-	cmd, _ := getArgs()
+	cmd, rawArgs := getArgs()
 
 	switch cmd {
+	case "cat":
+		cat.Run(rawArgs)
 	default:
 		log.Fatal("unknown command")
 	}
