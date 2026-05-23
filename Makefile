@@ -1,4 +1,4 @@
-.PHONY: all build clean
+.PHONY: all build clean push
 
 all: build
 
