@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/NilGopher/unibox/internal/cat"
+	"github.com/NilGopher/unibox/internal/mkdir"
 )
 
 func main() {
@@ -16,6 +17,8 @@ func main() {
 	switch cmd {
 	case "cat":
 		cat.Run(rawArgs)
+	case "mkdir":
+		mkdir.Run(rawArgs)
 	default:
 		log.Fatal("unknown command")
 	}
