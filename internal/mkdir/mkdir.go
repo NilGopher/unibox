@@ -20,9 +20,19 @@ func Run(rawArgs []string) {
 
 	for _, arg := range args {
 		if opt.parents {
-			os.MkdirAll(arg, os.FileMode(mode))
+			if err := os.MkdirAll(arg, os.FileMode(mode)); err != nil {
+				log.Print(err)
+				continue
+			}
 		} else {
-			os.MkdirAll(arg, os.FileMode(mode))
+			if err := os.Mkdir(arg, os.FileMode(mode)); err != nil {
+				log.Print(err)
+				continue
+			}
+		}
+
+		if err := os.Chmod(arg, os.FileMode(mode)); err != nil {
+			log.Print(err)
 		}
 	}
 }
