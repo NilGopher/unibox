@@ -7,6 +7,7 @@ import (
 
 	"github.com/NilGopher/unibox/internal/cat"
 	"github.com/NilGopher/unibox/internal/mkdir"
+	"github.com/NilGopher/unibox/internal/touch"
 )
 
 func main() {
@@ -19,6 +20,8 @@ func main() {
 		cat.Run(rawArgs)
 	case "mkdir":
 		mkdir.Run(rawArgs)
+	case "touch":
+		touch.Run(rawArgs)
 	default:
 		log.Fatal("unknown command")
 	}

@@ -13,7 +13,7 @@ func Run(rawArgs []string) {
 		log.Fatal("usage: mkdir <options> <dir_name>...")
 	}
 
-	mode, err := strconv.ParseInt(opt.mode, 8, 32)
+	mode, err := strconv.ParseUint(opt.mode, 8, 32)
 	if err != nil {
 		log.Fatal(err)
 	}
