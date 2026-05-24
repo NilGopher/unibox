@@ -20,12 +20,12 @@ func Run(rawArgs []string) {
 
 	for _, arg := range args {
 		if opt.parents {
-			if err := os.MkdirAll(arg, os.FileMode(mode)); err != nil {
+			if err := os.MkdirAll(arg, 0); err != nil {
 				log.Print(err)
 				continue
 			}
 		} else {
-			if err := os.Mkdir(arg, os.FileMode(mode)); err != nil {
+			if err := os.Mkdir(arg, 0); err != nil {
 				log.Print(err)
 				continue
 			}
