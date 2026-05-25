@@ -8,14 +8,14 @@ import (
 	"os"
 )
 
-func Run(rawArgs []string) {
+func Run(rawArgs []string) (exitCode int) {
 	args := opt.parse(rawArgs)
 
 	writer := bufio.NewWriterSize(os.Stdout, 1024*1024)
 	defer writer.Flush()
 
 	if len(args) == 0 {
-		process(writer, os.Stdin)
+		exitCode = process(writer, os.Stdin)
 		return
 	}
 
@@ -23,6 +23,7 @@ func Run(rawArgs []string) {
 		file, err := os.OpenFile(arg, os.O_RDONLY, 0)
 		if err != nil {
 			log.Print(err)
+			exitCode = 1
 			continue
 		}
 
@@ -36,13 +37,15 @@ func Run(rawArgs []string) {
 			writer.WriteByte('\n')
 		}
 
-		process(writer, file)
+		exitCode = process(writer, file)
 
 		file.Close()
 	}
+
+	return
 }
 
-func process(w *bufio.Writer, r io.Reader) {
+func process(w *bufio.Writer, r io.Reader) (exitCode int) {
 	reader := bufio.NewReaderSize(r, 256*1024)
 
 	lineNum := 1
@@ -75,8 +78,11 @@ func process(w *bufio.Writer, r io.Reader) {
 		if err != nil {
 			if err != io.EOF {
 				log.Print(err)
+				exitCode = 1
 			}
 			break
 		}
 	}
+
+	return
 }

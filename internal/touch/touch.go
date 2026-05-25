@@ -7,16 +7,18 @@ import (
 	"time"
 )
 
-func Run(rawArgs []string) {
+func Run(rawArgs []string) (exitCode int) {
 	args := opt.parse(rawArgs)
 
 	if len(args) == 0 {
-		log.Fatal("usage: touch <options> <file_name>...")
+		log.Print("usage: touch <options> <file_name>...")
+		return 1
 	}
 
 	mode, err := strconv.ParseUint(opt.mode, 8, 32)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
+		return 1
 	}
 
 	for _, arg := range args {
@@ -26,6 +28,7 @@ func Run(rawArgs []string) {
 				os.Chtimes(arg, time.Now(), time.Now())
 			} else {
 				log.Print(err)
+				exitCode = 1
 			}
 			continue
 		}
@@ -33,4 +36,6 @@ func Run(rawArgs []string) {
 		file.Chmod(os.FileMode(mode))
 		file.Close()
 	}
+
+	return
 }

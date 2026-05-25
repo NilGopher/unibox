@@ -7,24 +7,32 @@ import (
 
 	"github.com/NilGopher/unibox/internal/cat"
 	"github.com/NilGopher/unibox/internal/mkdir"
+	"github.com/NilGopher/unibox/internal/rm"
 	"github.com/NilGopher/unibox/internal/touch"
 )
 
 func main() {
 	log.SetFlags(0)
 
+	var exitCode int
+
 	cmd, rawArgs := getArgs()
 
 	switch cmd {
 	case "cat":
-		cat.Run(rawArgs)
+		exitCode = cat.Run(rawArgs)
 	case "mkdir":
-		mkdir.Run(rawArgs)
+		exitCode = mkdir.Run(rawArgs)
+	case "rm":
+		exitCode = rm.Run(rawArgs)
 	case "touch":
-		touch.Run(rawArgs)
+		exitCode = touch.Run(rawArgs)
 	default:
-		log.Fatal("unknown command")
+		log.Print("unknown command:", cmd)
+		exitCode = 1
 	}
+
+	os.Exit(exitCode)
 }
 
 func getArgs() (cmd string, rawArgs []string) {
