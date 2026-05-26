@@ -10,6 +10,7 @@ import (
 	"github.com/NilGopher/unibox/internal/pwd"
 	"github.com/NilGopher/unibox/internal/rm"
 	"github.com/NilGopher/unibox/internal/touch"
+	"github.com/NilGopher/unibox/internal/whoami"
 )
 
 func main() {
@@ -30,6 +31,8 @@ func main() {
 		exitCode = rm.Run(rawArgs)
 	case "touch":
 		exitCode = touch.Run(rawArgs)
+	case "whoami":
+		exitCode = whoami.Run(rawArgs)
 	default:
 		log.Print("unknown command:", cmd)
 		exitCode = 1
