@@ -3,7 +3,7 @@
 all: build
 
 build:
-	@go build -gcflags="" -ldflags="all=-s -w" -o ~/.local/bin/unibox
+	@go build -gcflags="" -ldflags="all=-s -w" -trimpath -o ~/.local/bin/unibox
 
 clean:
 	@rm -f ~/.local/bin/unibox

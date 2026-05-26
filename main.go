@@ -7,6 +7,7 @@ import (
 
 	"github.com/NilGopher/unibox/internal/cat"
 	"github.com/NilGopher/unibox/internal/mkdir"
+	"github.com/NilGopher/unibox/internal/pwd"
 	"github.com/NilGopher/unibox/internal/rm"
 	"github.com/NilGopher/unibox/internal/touch"
 )
@@ -23,6 +24,8 @@ func main() {
 		exitCode = cat.Run(rawArgs)
 	case "mkdir":
 		exitCode = mkdir.Run(rawArgs)
+	case "pwd":
+		exitCode = pwd.Run(rawArgs)
 	case "rm":
 		exitCode = rm.Run(rawArgs)
 	case "touch":
