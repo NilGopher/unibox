@@ -22,13 +22,13 @@ func Run(rawArgs []string) (exitCode int) {
 
 	for _, arg := range args {
 		if opt.parents {
-			if err := os.MkdirAll(arg, 0); err != nil {
+			if err := os.MkdirAll(arg, os.FileMode(mode)); err != nil {
 				log.Print(err)
 				exitCode = 1
 				continue
 			}
 		} else {
-			if err := os.Mkdir(arg, 0); err != nil {
+			if err := os.Mkdir(arg, os.FileMode(mode)); err != nil {
 				log.Print(err)
 				exitCode = 1
 				continue
@@ -38,8 +38,9 @@ func Run(rawArgs []string) (exitCode int) {
 		if err := os.Chmod(arg, os.FileMode(mode)); err != nil {
 			log.Print(err)
 			exitCode = 1
+			continue
 		}
 	}
 
-	return
+	return 0
 }
